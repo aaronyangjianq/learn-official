@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description"
+    content="Purpose is a unique and beautiful collection of UI elements that are all flexible and modular. A complete and customizable solution to building the website of your dreams.">
+  <meta name="author" content="Webpixels">
+  <title>KODINGMAN-外包平台</title>
+  <!-- Purpose CSS -->
+  <link rel="stylesheet" href="../../assets/css/purpose.css" id="stylesheet">
+  <link rel="stylesheet" href="../css/style.css" id="stylesheet">
+  <script src="../js/vue.js"></script>
+  <script src="../js/vuex.js"></script>
+  <script src="../js/vue-router.js"></script>
+</head>
+
+<body>
+  <div id="index">
+    <header class="header-nav-bg">
+      <div class="header-nav">
+        <div class="header-nav-left">
+          <img class="public-logo" src="../../svg/top_ic_logo.svg" alt="logo" onclick="homeClick()" />
+          <label>移动互联网行业解决方案服务提供商</label>
+        </div>
+        <div class="header-nav-right">
+          <img class="public-logo" src="../../images/more.png" alt="logo" />
+        </div>
+      </div>
+      <div class="header-nav-right-content">
+        <div>
+          <a href="index.html" class="active">首页</a>
+          <a href="list.html">外包列表</a>
+          <a href="release-demand.html">发布需求</a>
+          <a href="problem.html">问题列表</a>
+          <a href="../../index.html">回到官网</a>
+        </div>
+      </div>
+    </header>
+    <div class="header-nav-height"></div>
+    <!-- Cover 2 -->
+    <div id="covers-cover-2">
+      <section class="spotlight bg-cover bg-size--cover" data-spotlight="fullscreen"
+        style="background-image: url('../../assets/img/backgrounds/img-10.jpg');">
+        <span class="mask bg-dark opacity-7"></span>
+        <div class="spotlight-holder pt-9 pb-6 py-lg-0">
+          <div class="container d-flex align-items-center px-0">
+            <div class="col">
+              <div class="row row-grid">
+                <div class="col-lg-6">
+                  <div class="py-6 text-center text-lg-left">
+                    <h2 class="display-4 text-white mb-4">About us</h2>
+                    <p class="lead lh-180 text-white">With we want to optimize the customization process so your team
+                      can save time when building websites.</p>
+                    <div class="mt-5">
+                      <a href="release-demand.html"
+                        class="btn btn-white rounded-pill px-5 mr-lg-4 box-shadow-2">我要发需求</a>
+                      <a href="list.html" class="btn btn-outline-white btn-icon rounded-pill px-4" data-fancybox>
+                        <span class="btn-inner--icon"><i class="fas fa-play"></i></span>
+                        <span class="btn-inner--text">我要接外包</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <span id="milestone"></span>
+    <div>
+      <!-- Milestone 1 -->
+      <div id="milestone-milestone-1" >
+        <section class="slice slice-lg">
+          <div class="container">
+            <!-- Milestones -->
+            <div class="position-relative">
+              <div class="row">
+                <div class="col-lg-3 col-6 mb-5 mb-lg-0">
+                  <div class="text-center">
+                    <div class="mb-4">
+                    </div>
+                    <div class="h1 text-primary">
+                      <span class="counter" data-from="0" data-to="97" data-speed="3000"
+                        data-refresh-interval="100"></span>
+                      <span class="counter-extra">￥6734345</span>
+                    </div>
+                    <h3 class="h6 text-capitalize">项目累计金额</h3>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-6 mb-5 mb-lg-0">
+                  <div class="text-center">
+                    <div class="mb-4">
+                    </div>
+                    <div class="h1 text-primary">
+                      <span class="counter" data-from="0" data-to="365" data-speed="3000"
+                        data-refresh-interval="100"></span>
+                      <span class="counter-extra">833445</span>
+                    </div>
+                    <h3 class="h6 text-capitalize">项目累计数量</h3>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                  <div class="text-center">
+                    <div class="mb-4">
+                    </div>
+                    <div class="h1 text-primary">
+                      <span class="counter" data-from="0" data-to="200" data-speed="3000"
+                        data-refresh-interval="100"></span>
+                      <span class="counter-extra">122345</span>
+                    </div>
+                    <h3 class="h6 text-capitalize">访问开发者人数</h3>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                  <div class="text-center">
+                    <div class="mb-4">
+                    </div>
+                    <div class="h1 text-primary">
+                      <span class="counter" data-from="0" data-to="970" data-speed="3000"
+                        data-refresh-interval="100"></span>
+                      <span class="counter-extra">3456</span>
+                    </div>
+                    <h3 class="h6 text-capitalize">发布需求总数</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div style="margin:20px 0 30px 0">
+      <h3 style="text-align:center;font-size:34px;">交易与服务流程</h3>
+    </div>
+    <!-- Features (v15) -->
+    <section class="slice slice-lg">
+      <div class="container">
+        <div class="row row-grid justify-content-around align-items-center">
+          <div class="col-lg-5">
+            <div class="">
+              <h5 class=" h3">发布需求</h5>
+              <p class="lead my-4">○ 快速发布需求，多种定制化需求</p>
+              <p class="lead my-4">○ 涵盖各类项目，各类开发者等待您的需求</p>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <img alt="Image placeholder" src="../../assets/img/theme/light/img-2-1000x900.jpg"
+              class="img-fluid img-center ">
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Features (v15) -->
+    <section class="slice slice-lg">
+      <div class="container">
+        <div class="row row-grid justify-content-around align-items-center">
+          <div class="col-lg-5 order-lg-2">
+            <div class=" pr-lg-4">
+              <h5 class=" h3">确认合作</h5>
+              <p class="lead my-4">○ 海量开发者，技能多样化</p>
+              <p class="lead my-4">○ 实现技能需求匹配</p>
+              <p class="lead my-4">○ 确认合作开发者</p>
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <img alt="Image placeholder" src="../../assets/img/cooperation.png"
+              class="img-fluid img-center ">
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slice slice-lg">
+      <div class="container">
+        <div class="row row-grid justify-content-around align-items-center">
+          <div class="col-lg-5">
+            <div class="">
+              <h5 class=" h3">无忧交付</h5>
+              <p class="lead my-4">○ 提供代码托管、文档管理、代码质量报告等</p>
+              <p class="lead my-4">○ 让项目过程的每一步都有迹可循，随时监管</p>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <img alt="Image placeholder" src="../../assets/img/theme/light/img-1-1000x900.jpg"
+              class="img-fluid img-center ">
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slice slice-lg">
+      <div class="container">
+        <div class="row row-grid justify-content-around align-items-center">
+          <div class="col-lg-5 order-lg-2">
+            <div class="">
+              <h5 class=" h3">跟进质保</h5>
+              <p class="lead my-4">○ 项目质保期内，开发者义务修复BUG及调优</p>
+              <p class="lead my-4">○ 保障运营无忧，助力项目上线</p>
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <img alt="Image placeholder" src="../../assets/img/warranty.png"
+              class="img-fluid img-center ">
+          </div>
+        </div>
+      </div>
+    </section>
+    <span id="call-to-action"></span>
+    <div>
+      <div id="call-to-action-call-to-action-1">
+        <section class="slice slice-lg bg-cover bg-size--cover overflow-hidden" data-spotlight
+          style="background-image: url(../../assets/img/backgrounds/img-9.jpg);">
+          <span class="mask bg-gradient-primary opacity-5"></span>
+          <div class="container">
+            <div class="row justify-content-center align-items-center">
+              <div class="col-lg-7 text-center">
+                <h3 class="h1 text-white">你还在等什么，快点行动吧</h3>
+                <div class="mt-5">
+                  <a href="release-demand.html" onclick="toreleaseDemand()" class="btn btn-lg btn-white rounded-pill">我要发需求</a>
+                  <a href="list.html" class="btn btn-lg btn-link text-light">我要接外包</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  <!-- <script src="../js/jquery-3.4.1.min.js"></script>
+  <script src="../js/style.js"></script> -->
+  <script>
+    let vm = new Vue({
+      el: '#index'
+    })
+  </script>
+</body>
+
+</html>

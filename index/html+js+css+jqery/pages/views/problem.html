@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description"
+    content="Purpose is a unique and beautiful collection of UI elements that are all flexible and modular. A complete and customizable solution to building the website of your dreams.">
+  <meta name="author" content="Webpixels">
+  <title>KODINGMAN-外包平台-问题列表</title>
+  <!-- Favicon -->
+  <link rel="icon" href="../../assets/img/brand/favicon.png" type="image/png">
+  <!-- Font Awesome 5 -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../../assets/css/purpose.css" id="stylesheet">
+  <script src="../js/vue.js"></script>
+  <script src="../js/vuex.js"></script>
+  <script src="../js/vue-router.js"></script>
+</head>
+
+<body>
+  <div id="problem">
+    <header class="header-nav-bg">
+      <div class="header-nav">
+        <div class="header-nav-left">
+          <img class="public-logo" src="../../svg/top_ic_logo.svg" alt="logo" onclick="homeClick()" />
+          <label>移动互联网行业解决方案服务提供商</label>
+        </div>
+        <div class="header-nav-right">
+          <img class="public-logo" src="../../images/more.png" alt="logo" />
+        </div>
+      </div>
+      <div class="header-nav-right-content">
+        <div>
+          <a href="index.html">首页</a>
+          <a href="list.html">外包列表</a>
+          <a href="release-demand.html">发布需求</a>
+          <a href="problem.html" class="active">问题列表</a>
+          <a href="../../index.html">回到官网</a>
+        </div>
+      </div>
+    </header>
+    <div class="header-nav-height"></div>
+    <div class="main-content">
+      <div class="public-crumbs" style="max-width:1100px;margin:0 auto;">
+        <span>当前位置：</span><a href="index.html">首页</a><img src="../images/right icon@2x.png" /><a>开发方常见问题解答</a>
+      </div>
+      <section class="slice slice-lg" id="sct-faq">
+        <div class="container">
+          <div class="row row-grid">
+            <div class="col-lg-3">
+              <div>
+                <div class="card">
+                  <div class="list-group list-group-flush">
+                    <a href="#demand" class="list-group-item list-group-item-action d-flex justify-content-between">
+                      <div>
+                        <i class="fas fa-desktop mr-2"></i>
+                        <span>需求方常见问题</span>
+                      </div>
+                      <div>
+                        <i class="fas fa-angle-right"></i>
+                      </div>
+                    </a>
+                    <a href="#develop" class="list-group-item list-group-item-action d-flex justify-content-between">
+                      <div>
+                        <i class="fas fa-hand-pointer mr-2"></i>
+                        <span>开发方常见问题</span>
+                      </div>
+                      <div>
+                        <i class="fas fa-angle-right"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8 ml-lg-auto">
+              <!-- demand -->
+              <div class="mb-md" id="demand">
+                <h4 class="mb-4">我是需求方</h4>
+                <!-- Accordion -->
+                <div id="accordion-1" class="accordion accordion-spaced"  id="demandRegister">
+                  <!-- Accordion card 1 -->
+                  <div class="card">
+                    <div class="card-header py-4" id="heading-1-1" data-toggle="collapse" role="button"
+                      data-target="#collapse-1-1" :aria-expanded="isdemandCollapseCardOne" aria-controls="collapse-1-1"
+                      @click="collapsedemandAccordionCardOne">
+                      <h6 class="mb-0"><i class="fas fa-file-pdf mr-3"></i>是否需要注册?</h6>
+                    </div>
+                    <div v-show="isdemandCollapseCardOne" id="collapse-1-1" class="collapse"
+                      aria-labelledby="heading-1-1" data-parent="#accordion-1">
+                      <div class="card-body">
+                        <p>一、选择需要开发的项目类型
+                          <br />
+                          <br />
+                          二、填写项目名称、需求描述等信息，越详细的描述可以给开发者传递更多项目信息，有利于吸引更多靠谱开发者报名。您也可以增加需求文档附件。
+                          <br />
+                          <br />
+                          三、填写完成后即进入平台审核环节。平台审核过程中发现有任何违法信息、敏感信息、不具任何意义信息将会无法通过审核。</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Accordion card 2 -->
+                  <div class="card" id="demandrelease">
+                    <div class="card-header py-4" id="heading-1-2" data-toggle="collapse" role="button"
+                      data-target="#collapse-1-2" :aria-expanded="isdemandCollapseCardTwo" aria-controls="collapse-1-2"
+                      @click="collapsedemandAccordionCardTwo">
+                      <h6 class="mb-0"><i class="fas fa-lock mr-3"></i>需求方在平台做项目步骤是什么？</h6>
+                    </div>
+                    <div v-show="isdemandCollapseCardTwo" id="collapse-1-2" class="collapse"
+                      aria-labelledby="heading-1-2" data-parent="#accordion-1">
+                      <div class="card-body">
+                        <p>一、在平台发布需求：需求方发布时，应尽量把需求描述写清楚以便报名者理解。
+                          <br />
+                          <br />
+                          二、需求发布出来后其他开发者可根据需求方的联系方式直接联系沟通。
+                          <br />
+                          <br />
+                          三、与开发者充分沟通项目需求后，双方达成一致意见，平台只提供需求方的需求信息展示，不参与项目具体需求沟通与管理，请务必与开发方沟通确认需求以及项目计划。</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Accordion card 3 -->
+                  <div class="card" id="demandApply">
+                    <div class="card-header py-4" id="heading-1-3" data-toggle="collapse" role="button"
+                      data-target="#collapse-1-3" :aria-expanded="isdemandCollapseCardThree"
+                      aria-controls="collapse-1-3" @click="collapsedemandAccordionCardThree">
+                      <h6 class="mb-0"><i class="fas fa-credit-card mr-3"></i>如何进行支付交易？</h6>
+                    </div>
+                    <div v-show="isdemandCollapseCardThree" id="collapse-1-3" class="collapse"
+                      aria-labelledby="heading-1-3" data-parent="#accordion-1">
+                      <div class="card-body">
+                        <p>平台不参与具体的交易支付过程，请进行线下交易，平台不会介入纠纷处理，责任由甲乙双方承担</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Scroll to top -->
+                <div class="text-right py-4">
+                  <a href="#" data-scroll-to data-scroll-to-offset="50" class="text-sm font-weight-bold">Back to top<i
+                      class="fas fa-long-arrow-alt-up ml-2"></i></a>
+                </div>
+              </div>
+              <!-- develop  -->
+              <div class="mb-md" id="develop">
+                <h4 class="mb-4">我是开发者</h4>
+                <!-- Accordion -->
+                <div id="accordion-2" class="accordion accordion-spaced">
+                  <!-- Accordion card 1 -->
+                  <div class="card" id="register">
+                    <div class="card-header py-4" id="heading-2-1" data-toggle="collapse" role="button"
+                      data-target="#collapse-2-1" :aria-expanded="isdevelopCollapseCardOne" aria-controls="collapse-2-1"
+                      @click="collapsedevelopAccordionCardOne">
+                      <h6 class="mb-0"><i class="fas fa-credit-card mr-3"></i>是否需要注册？</h6>
+                    </div>
+                    <div v-show="isdevelopCollapseCardOne" id="collapse-2-1" class="collapse"
+                      aria-labelledby="heading-2-1" data-parent="#accordion-2">
+                      <div class="card-body">
+                        <p>本平台不提供开发者注册功能。</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Accordion card 2 -->
+                  <div class="card" id="order">
+                    <div class="card-header py-4" id="heading-2-2" data-toggle="collapse" role="button"
+                      data-target="#collapse-2-2" :aria-expanded="isdevelopCollapseCardTwo" aria-controls="collapse-2-2"
+                      @click="collapsedevelopAccordionCardTwo">
+                      <h6 class="mb-0"><i class="fas fa-credit-card mr-3"></i>如何接单？</h6>
+                    </div>
+                    <div v-show="isdevelopCollapseCardTwo" id="collapse-2-2" class="collapse"
+                      aria-labelledby="heading-2-2" data-parent="#accordion-2">
+                      <div class="card-body">
+                        <p>一、浏览并选择需要开发的项目。
+                          <br />
+                          <br />
+                          二、查看具体的项目细节或需求文档附件，之后可以根据需求方联系方式直接沟通联系，商讨项目事宜。平台只提供需求方的需求信息展示，不参与项目具体需求沟通与管理，
+                          请务必与开发方沟通确认需求以及项目计划。同时，平台不参与具体的交易支付过程，请进行线下交易，平台不会介入纠纷处理，责任由甲乙双方承担。</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Accordion card 3 -->
+                  <div class="card" id="transaction">
+                    <div class="card-header py-4" id="heading-2-3" data-toggle="collapse" role="button"
+                      data-target="#collapse-2-3" :aria-expanded="isdevelopCollapseCardThree"
+                      aria-controls="collapse-2-3" @click="collapsedevelopAccordionCardThree">
+                      <h6 class="mb-0"><i class="fas fa-credit-card mr-3"></i>如何进行支付交易？</h6>
+                    </div>
+                    <div v-show="isdevelopCollapseCardThree" id="collapse-2-3" class="collapse"
+                      aria-labelledby="heading-2-3" data-parent="#accordion-2">
+                      <div class="card-body">
+                        <p>平台不参与具体的交易支付过程，请进行线下交易，平台不会介入纠纷处理，责任由甲乙双方承担。</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Scroll to top -->
+                <div class="text-right py-4">
+                  <a href="#" data-scroll-to data-scroll-to-offset="50" class="text-sm font-weight-bold">Back to top<i
+                      class="fas fa-long-arrow-alt-up ml-2"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <!-- <script src="../js/jquery-3.4.1.min.js"></script>
+  <script src="../../assets/js/purpose.core.js"></script>
+  <script src="../js/style.js"></script> -->
+  <script>
+    let vm = new Vue({
+      el: '#problem',
+      data: {
+        isdemandCollapseCardOne: false,
+        isdemandCollapseCardTwo: false,
+        isdemandCollapseCardThree: false,
+        isdevelopCollapseCardOne: false,
+        isdevelopCollapseCardTwo: false,
+        isdevelopCollapseCardThree: false,
+      },
+      created() {
+        this.getUrlParams()
+      },
+      methods: {
+        collapsedemandAccordionCardOne() {
+          this.isdemandCollapseCardOne = !this.isdemandCollapseCardOne
+        },
+        collapsedemandAccordionCardTwo() {
+          this.isdemandCollapseCardTwo = !this.isdemandCollapseCardTwo
+        },
+        collapsedemandAccordionCardThree() {
+          this.isdemandCollapseCardThree = !this.isdemandCollapseCardThree
+        },
+        collapsedevelopAccordionCardOne() {
+          this.isdevelopCollapseCardOne = !this.isdevelopCollapseCardOne
+        },
+        collapsedevelopAccordionCardTwo() {
+          this.isdevelopCollapseCardTwo = !this.isdevelopCollapseCardTwo
+        },
+        collapsedevelopAccordionCardThree() {
+          this.isdevelopCollapseCardThree = !this.isdevelopCollapseCardThree
+        },
+        getUrlParams() {
+          const positionOne = window.location.href.indexOf('?')
+          const positionTwo = window.location.href.indexOf('#') 
+          const name = window.location.href.substr(positionOne + 1).split('#')[0];
+          switch(name){
+            case 'isdemandCollapseCardOne':
+            this.isdemandCollapseCardOne = true
+            break;
+            case 'isdemandCollapseCardTwo':
+            this.isdemandCollapseCardTwo = true
+            break;
+            case 'isdemandCollapseCardThree':
+            this.isdemandCollapseCardThree = true
+            break;
+            case 'isdevelopCollapseCardOne':
+            this.isdevelopCollapseCardOne = true
+            break;
+            case 'isdevelopCollapseCardTwo':
+            this.isdevelopCollapseCardTwo = true
+            break;
+            case 'isdevelopCollapseCardThree':
+            this.isdevelopCollapseCardThree = true
+            break;
+          }
+          console.log('ddd', name)
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,600 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>KODINGMAN-外包平台-发布需求</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <link rel="stylesheet" type="text/css" href="../css/style.css" />
+  <link rel="stylesheet" type="text/css" href="../css/release-demand.css" />
+  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <script src="../js/vue.js"></script>
+  <script src="../js/vuex.js"></script>
+  <script src="../js/vue-router.js"></script>
+  <!-- 引入组件库 -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body style="background:#F5F5F5;">
+  <div id="release-demand">
+    <header class="header-nav-bg">
+      <div class="header-nav">
+        <div class="header-nav-left">
+          <img class="public-logo" src="../../svg/top_ic_logo.svg" alt="logo" onclick="homeClick()" />
+          <label>移动互联网行业解决方案服务提供商</label>
+        </div>
+        <div class="header-nav-right">
+          <img class="public-logo" src="../../images/more.png" alt="logo" />
+        </div>
+      </div>
+      <div class="header-nav-right-content">
+        <div>
+          <a href="index.html">首页</a>
+          <a href="list.html">外包列表</a>
+          <a href="release-demand.html" class="active">发布需求</a>
+          <a href="problem.html">问题列表</a>
+          <a href="../../index.html">回到官网</a>
+        </div>
+      </div>
+    </header>
+    <div class="header-nav-height"></div>
+    <div class="container" style="max-width:1100px;margin:0 auto;">
+      <div class="public-crumbs">
+        <span>当前位置：</span><a href="index.html">首页</a><img src="../images/right icon@2x.png" /><a>发布需求</a>
+      </div>
+      <div class="row">
+        <main class="main col-xs-12 col-sm-9" style="padding:0;">
+          <header class="header">
+            <h4 class="title-bar">选择您的开发类型</h4>
+            <ul class="menu-bar">
+              <li :class="[typeArr.includes(type.id)?'menu-bar-active':'']" v-for="(type, index) in typeList"
+                :key="type.id" @click="chooseType(type.id)">
+                <img :src="type.img" />
+                <span>{{type.value}}</span>
+              </li>
+            </ul>
+          </header>
+          <form name="form" :form="form">
+            <div class="info-main">
+              <div class="info">
+                <h4 class="title-bar">填写项目相关信息</h4>
+                <div class="info-cell" v-if="otherType">
+                  <label>项目类型:</label>
+                  <div>
+                    <input type="text" name="project_naeme" placeholder="请输入其他项目类型" v-model="form.dev_type" required />
+                  </div>
+                </div>
+                <div class="info-cell">
+                  <label>项目名称:</label>
+                  <div>
+                    <input type="text" name="project_naeme" placeholder="30字符以内" v-model="form.product" required />
+                  </div>
+                </div>
+
+                <div class="info-cell">
+                  <label>项目行业:</label>
+                  <div>
+                    <!-- <select class="empty" v-model="form.trade_id" onmousedown="if(this.options.length>6){this.size=7}" onblur="this.size=0" onchange="this.size=0"> -->
+                    <select class="empty" v-model="form.trade_id">
+                      <option value=null disabled selected style='display:none;'>行业信息</option>
+                      <option v-for="business in businessList" :id="business.id" :value="business.id">{{business.value}}
+                      </option>
+                    </select>
+                    <!-- <el-select v-model="form.trade_id" placeholder="行业信息" class="tradeSelect">
+                      <el-option
+                        v-for="business in businessList"
+                        :key="business.id"
+                        :label="business.value"
+                        :value="business.id">
+                      </el-option>
+                    </el-select> -->
+                  </div>
+                </div>
+
+                <div class="info-cell-budget">
+                  <label style="height:56px;line-height:56px;">项目预算:</label>
+                  <div>
+                    <div>
+                      <input type="number" name="money" id="number" placeholder="请输入项目预算" v-model="form.price" min=0
+                        @input="changeNumber" required />
+                      <span>元</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" v-model="form.bargin" />
+                      <label for="box">可议价</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="info-cell small">
+                  <label>期望交付周期:</label>
+                  <div>
+                    <input type="number" style="font-size:14px;" name="day" placeholder="请输入交付周期" v-model="form.days"
+                      required />
+                    <span>天</span>
+                  </div>
+                </div>
+                <div class="info-cell textarea">
+                  <label>项目描述:</label>
+                  <div>
+                    <textarea name="describe" placeholder="请大概描述一下您的项目，以便于我们更好的对您的项目进行评估"
+                      v-model="form.desc"></textarea>
+                  </div>
+                </div>
+                <div class="info-cell-mode url">
+                  <label></label>
+                  <div>
+                    <label>参考网站或应用（选填）：</label>
+                    <div class="info-cell">
+                      <label class="key-label">1</label>
+                      <div>
+                        <input type="text" name="url1" placeholder="请输入网址或应用名称" v-model="form.consult1" />
+                      </div>
+                    </div>
+                    <div class="info-cell">
+                      <label class="key-label">2</label>
+                      <div>
+                        <input type="text" name="url2" placeholder="请输入网址或应用名称" v-model="form.consult2" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="info-cell-mode">
+                  <label>相关文档（选填）：</label>
+                  <div>
+                    <div class="upload">
+                      <form id="uploadForm" enctype="multipart/form-data">
+                        <label for="inputFile" class="button">
+                          <div class="uploadBorder">
+                            <span class="uploadName">
+                              上传文件
+                            </span>
+                          </div>
+                        </label>
+                        <input type="file" id="inputFile" multiple="multiple" style="display: none"
+                          @change="fileSelected" />
+                        <li style="margin-top: 8px; margin-left: 14px;" v-for="(file,index) in fileList">
+                          <span>{{file.name}}</span>
+                          <span style="margin-left: 4px;">{{parseInt(file.size / 1024)}}kb</span>
+                          <i style="margin-left: 16px;cursor: pointer;" @click="deleteFile(index)">×</i>
+                        </li>
+                        <!-- <p id="fileName"></p> -->
+                        <!-- <div id="div-file"><input type="file" name="file"  id="img-upload"
+                            multiple hidden style="display:none" /></div>
+                        <input id='batch_publish_form_reset' type="reset" value="重置" style="display:none" />
+                        <input type="file" name="fileToUpload" id="fileToUpload" @change="fileSelected(e)">上传文件 -->
+                      </form>
+                    </div>
+                    <!-- <div class="upload">
+                      <form id="uploadForm" action="#" method="post" enctype="multipart/form-data">
+                        <div id="div-file"><input type="file" name="file"  id="img-upload"
+                            multiple hidden style="display:none" /></div>
+                        <input id='batch_publish_form_reset' type="reset" value="重置" style="display:none" />
+                      </form>
+                    </div> -->
+                  </div>
+                </div>
+                <div class="info-cell-mode url">
+                  <label></label>
+                  <div>
+                    <label></label>
+                    <div id="file-container">
+                    </div>
+                  </div>
+                </div>
+                <div class="info-cell-mode">
+                  <label></label>
+                  <div>
+                    <p class="upload-tip">请上传您可以公开的的项目文档，例如产品的需求文档、设计稿、概念视频等，20 MB 以内</p>
+                  </div>
+                </div>
+                <div class="info-cell textarea">
+                  <label>备注要求:</label>
+                  <div>
+                    <textarea placeholder="可以大概描述一下有什么其他的要求" v-model="form.note"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="info">
+                <h4 class="title-bar">填写联系信息:</h4>
+                <div class="info-cell">
+                  <label>您的姓名:</label>
+                  <div>
+                    <input type="text" name="user_name" placeholder="请填写您的姓名" v-model="form.name" required />
+                  </div>
+                </div>
+                <div class="info-cell">
+                  <label>您的邮箱:</label>
+                  <div>
+                    <input type="email" name="email" placeholder="请填写您的邮箱" v-model="form.email" required />
+                  </div>
+                </div>
+                <div class="info-cell">
+                  <label>您的手机号:</label>
+                  <div>
+                    <input type="number" name="phone" placeholder="请填写您的手机号" v-model="form.phone" required />
+                  </div>
+                </div>
+                <div class="info-cell">
+                  <label>手机验证码:</label>
+                  <div>
+                    <input type="number" name="phone_code" placeholder="请填写您的验证码" class="code-input" v-model="form.code"
+                      required />
+                    <span id="count-down">60</span>
+                    <button v-show="show" type="button" class="code-button" @click="sendCode(form.phone)">发送验证码</button>
+                    <span v-show="!show">重新发送{{count}}s</span>
+                  </div>
+                </div>
+              </div>
+              <div class="release" style="text-align: center;">
+                <!-- <button @click.preventDefault="sendDemand">发布</button> -->
+                <!-- <input type="button" @click.stop="sendDemand" value="发布" /> -->
+                <a class="btn border" @click.preventDefault="sendDemand">发布 </a>
+              </div>
+            </div>
+
+          </form>
+
+        </main>
+        <aside class="public-problem  col-xs-12 col-sm-3">
+          <div class="public-problem-title">
+            <h4>需求方常见问题解答</h4>
+            <a href="">查看更多 &raquo;</a>
+          </div>
+          <ul>
+            <li><a href="problem.html?isdemandCollapseCardOne#demandRegister">是否需要注册？</a></li>
+            <li><a href="problem.html?isdemandCollapseCardTwo#demandrelease">如何发布需求？</a></li>
+            <li><a href="problem.html?isdemandCollapseCardThree#demandApply">如何进行支付交易？</a></li>
+          </ul>
+          <!-- <h4>开发方常见问题解答</h4>
+            <a href="">查看更多 &raquo;</a>
+          </div>
+          <ul>
+            <li><a href="problem.html?isdevelopCollapseCardOne#register">是否需要注册？</a></li>
+            <li><a href="problem.html?isdevelopCollapseCardTwo#order">如何接单？</a></li>
+            <li><a href="problem.html?isdevelopCollapseCardThree#transaction">如何进行支付交易？</a></li>
+          </ul> -->
+          <a href="problem.html">&raquo; 查看更多常见问题</a>
+          <button type="button" class="public-problem-demand" @click="toList">外包列表</button>
+        </aside>
+      </div>
+    </div>
+    <div class="toast">
+      <span></span>
+    </div>
+    <div class="releaseDialog">
+      <el-dialog :visible.sync="dialogVisible" center :before-close="handleClose">
+        <span>需求发布成功，请留意电话、短信，开发者将会与您取得联系</span>
+        <span slot="footer" class="dialog-footer">
+          <el-button 
+            type="primary"
+            @click="handleClick"
+          >
+            确 定
+          </el-button>
+        </span>
+      </el-dialog>
+    </div>
+  </div>
+  <script src="../js/jquery-3.4.1.min.js"></script>
+  <script src="../js/style.js"></script>
+  <script src="../js/vuex.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#release-demand',
+      data: {
+        form: {
+          product: '',
+          dev_type: '',
+          trade_id: null,
+          price: null,
+          bargin: 0,
+          days: null,
+          desc: '',
+          consult1: '',
+          consult2: '',
+          file1: {
+          },
+          file2: {
+          },
+          note: '',
+          name: '',
+          email: '',
+          phone: '',
+          code: null
+        },
+        typeList: [{
+          id: null,
+          value: ''
+        }],
+        businessList: [{
+          id: null,
+          value: ''
+        }],
+        otherType: false,
+        isActive: false,
+        typeArr: [],
+        show: true,
+        count: '',
+        timer: null,
+        jointype: '',
+        sendFilelist: [],
+        fileList: [],
+        size: null,
+        chooseTypes: '',
+        dialogVisible: false
+      },
+      created() {
+        this.getTypes()
+        this.getBusiness()
+      },
+      methods: {
+        toast(val) {
+          clearTimeout(window.toastClear);
+          $('.toast span').show();
+          $('.toast span').text(val);
+          window.toastClear = setTimeout(() => {
+            $('.toast span').hide();
+          }, 1500);
+        },
+        sendDemand() {
+          let _this = this
+          const phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/
+          const emailReg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
+          if (this.typeArr.length === 0) {
+            this.toast('请选择开发类型');
+            return false;
+          } else if (_this.form.product === '') {
+            this.toast('请填写项目名称');
+            return false;
+          } else if (_this.form.trade_id === null) {
+            this.toast('请选择项目行业');
+            return false;
+          } else if (_this.form.price === null) {
+            this.toast('请填写项目名预算');
+            return false;
+          } else if (_this.form.days === null) {
+            this.toast('请填写期望天数');
+            return false;
+          } else if (_this.form.desc === '') {
+            this.toast('请填写项目描述');
+            return false;
+          } else if (_this.form.name === '') {
+            this.toast('请填写您的姓名');
+            return false;
+          } else if (_this.form.email === '') {
+            this.toast('请填写邮箱');
+            return false;
+          } else if (_this.form.phone === null) {
+            this.toast('请填写手机号码');
+            return false;
+          } else if (_this.form.code === null) {
+            this.toast('请填写手机验证码');
+            return false;
+          }
+          const form = _this.form
+          const product = form.product
+          let type = ''
+          const trade_id = form.trade_id
+          const price = form.price
+          const bargin = form.bargin ? 1 : 0
+          const days = form.days
+          const desc = form.desc
+          const consult1 = form.consult1
+          const consult2 = form.consult2
+          const note = form.note
+          const name = form.name
+          const email = form.email
+          const phone = form.phone
+          const code = form.code
+          const file1 = {
+            url: '',
+            name: '',
+            size: null
+          }
+          const file2 = {
+            url: '',
+            name: '',
+            size: null
+          }
+          if (_this.form.dev_type) {
+            const typeList = _this.typeArr.filter(item => item !== 10)
+            const typeString = typeList.join('||') + '||'
+            type = typeString + _this.form.dev_type
+          } else {
+            type = _this.typeArr && (_this.typeArr.join('||')).toString()
+          }
+          file1.url = _this.sendFilelist && _this.sendFilelist[0] && _this.sendFilelist[0].url
+          file1.name = _this.fileList && _this.fileList[0] && _this.fileList[0].name
+          file1.size = _this.sendFilelist && _this.sendFilelist[0] && _this.sendFilelist[0].size
+          file2.url = _this.sendFilelist && _this.sendFilelist[1] && _this.sendFilelist[1].url
+          file2.name = _this.fileList && _this.fileList[1] && _this.fileList[1].name
+          file2.size = _this.sendFilelist && _this.sendFilelist[1] && _this.sendFilelist[1].size
+          $.ajax({
+            type: "post",
+            url: "http://kdm.rixiazai.com/home/index/apply",
+            data: {
+              product,
+              dev_type: type,
+              trade_id,
+              price,
+              bargin,
+              days,
+              desc,
+              consult1,
+              consult2,
+              file1,
+              file2,
+              note,
+              name,
+              email,
+              phone,
+              code
+            },
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            success: function (responseData) {
+              const rawData = JSON.parse(responseData)
+              const code = rawData.code;
+              const msg = rawData.msg;
+              if (code === 200) {
+                _this.typeArr = []
+                _this.show = true
+                _this.form = {}
+                _this.sendFilelist = []
+                _this.fileList = []
+                _this.dialogVisible = true;
+                // confirm('需求发布成功，请留意电话、短信，开发者将会与您取得联系')
+                // _this.toast('需求发布成功，请留意电话、短信，开发者将会与您取得联系')
+              } else {
+                _this.toast(msg);
+              }
+            }
+          })
+        },
+        getTypes() {
+          let _this = this
+          $.ajax({
+            type: "get",
+            url: "http://kdm.rixiazai.com/home/public/getTypes",
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            success: function (responseData) {
+              const rawdata = JSON.parse(responseData)
+              const list = rawdata.data
+              _this.typeList = list.filter(item => item.id !== 0)
+            }
+          });
+        },
+        getBusiness() {
+          let _this = this
+          $.ajax({
+            type: "get",
+            url: "http://kdm.rixiazai.com/home/public/getBusiness",
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            success: function (responseData) {
+              const rawData = JSON.parse(responseData)
+              _this.businessList = rawData.data
+            }
+          });
+        },
+        sendCode(e) {
+          let _this = this
+          const mobile = e;
+          $.ajax({
+            type: "post",
+            url: "http://kdm.rixiazai.com/home/public/sendCode",
+            data: {
+              mobile
+            },
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            success: function (responseData) {
+              _this.setTime()
+            }
+          });
+        },
+        fileSelected(event) {
+          let _this = this
+          const file = event.target.files[0]
+          const forms = new FormData()
+          forms.append('file', file)
+          const fileNumber = _this.sendFilelist.length
+          if (fileNumber > 1) {
+            _this.toast('最多上传2个文件')
+            return false
+          }
+          $.ajax({
+            type: "post",
+            url: "http://kdm.rixiazai.com/home/public/upFile",
+            data: forms,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function (responseData) {
+              const rawData = responseData.data
+              _this.sendFilelist.push(rawData)
+              console.log('sendFilelist', _this.sendFilelist)
+              console.log('sendFilelist[0]', _this.sendFilelist[0].url)
+
+              _this.fileList.push(file)
+              console.log('file', _this.fileList)
+            }
+          })
+        },
+        chooseType(e) {
+          let _this = this
+          const type = e
+          _this.typeArr.push(type)
+          console.log('choose', _this.typeArr.includes(e))
+          const length = _this.typeArr && _this.typeArr.length
+          _this.typeArr && _this.typeArr.map(
+            (item, index) => {
+              if ((new Set(_this.typeArr)).size != _this.typeArr.length) {
+                console.log('index', index)
+                _this.typeArr.splice(index, 1)
+              }
+              return _this.typeArr
+            })
+          if (e === 10) {
+            this.otherType = true
+          }
+        },
+        toList() {
+          location.href = "list.html"
+        },
+        setTime() {
+          const TIME_COUNT = 60;
+          if (!this.timer) {
+            this.count = TIME_COUNT;
+            this.show = false;
+            this.timer = setInterval(() => {
+              if (this.count > 0 && this.count <= TIME_COUNT) {
+                this.count--;
+              } else {
+                this.show = true;
+                clearInterval(this.timer);
+                this.timer = null;
+              }
+            }, 1000)
+          }
+        },
+        getFileName(file) {
+          const fileposition = file.lastIndexOf('/')
+          return fileName = file.substr(fileposition + 1)
+        },
+        deleteFile(index) {
+          this.fileList.splice(index, 1)
+          this.sendFilelist.splice(index, 1)
+        },
+        changeNumber() {
+          document.getElementById("number").addEventListener("input", function (event) {
+            event.target.value = event.target.value.replace(/\-/g, "");
+          });
+        },
+        handleClose() {
+          this.dialogVisible = false;
+        },
+        handleClick() {
+          this.dialogVisible = false;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

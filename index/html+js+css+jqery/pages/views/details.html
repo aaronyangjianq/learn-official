@@ -1,0 +1,250 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>KODINGMAN-外包平台-外包列表-项目详情</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <link rel="stylesheet" type="text/css" href="../css/style.css" />
+  <link rel="stylesheet" type="text/css" href="../css/details.css" />
+  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="../js/vue.js"></script>
+  <script src="../js/vuex.js"></script>
+  <script src="../js/vue-router.js"></script>
+</head>
+
+<body style="background:#F5F5F5;">
+  <div id="detail">
+    <header class="header-nav-bg">
+      <div class="header-nav">
+        <div class="header-nav-left">
+          <img class="public-logo" src="../../svg/top_ic_logo.svg" alt="logo" onclick="homeClick()" />
+          <label>移动互联网行业解决方案服务提供商</label>
+        </div>
+        <div class="header-nav-right">
+          <img class="public-logo" src="../../images/more.png" alt="logo" />
+          <div class="header-nav-right-content">
+            <div>
+              <a href="index.html">首页</a>
+              <a href="list.html" class="active">外包列表</a>
+              <a href="release-demand.html">发布需求</a>
+              <a href="problem.html">问题列表</a>
+              <a href="../../index.html">回到官网</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="header-nav-height"></div>
+    <div class="container" style="max-width:1100px;margin:0 auto;">
+      <div class="public-crumbs">
+        <span>当前位置：</span><a href="index.html">首页</a><img src="../images/right icon@2x.png" /><a
+          href="list.html">外包列表</a><img src="../images/right icon@2x.png" /><a>项目详情</a>
+      </div>
+      <div class="row">
+        <main class="main col-xs-12 col-sm-9" style="padding:0;">
+          <div class="list" :value="detailData">
+            <div class="list-cell">
+              <div class="list-cell-title">
+                <h4 style="line-height: normal;">{{detailData.product}}</h4>
+                <div>
+                  <span>¥{{detailData.price}}</span>
+                  <span class="priceDiscuss">({{detailData.bargin ? '可议价' : '不可议价'}})</span>
+                </div>
+              </div>
+              <div class="list-cell-content">
+                <div>
+                  <label class="cell-label">类型：</label>
+                  <span class="cell-span" v-for="type in detailData.dev_type">{{type}}</span>
+                </div>
+                <div class="list-cell-custom">
+                  <div>
+                    <div>
+                      <label class="cell-label">项目行业：</label>
+                      <span class="cell-span">{{detailData.business}}</span>
+                    </div>
+                    <div>
+                      <label class="cell-label">周期：</label>
+                      <span class="cell-span">{{detailData.days}}天</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="list-cell-content">
+                  <div class="list-cell-custom">
+                    <div>
+                      <div>
+                        <label class="cell-label">联系方式：</label>
+                        <span class="cell-span">{{detailData.phone}}</span>
+                      </div>
+                      <!-- <div>
+                        <label class="cell-label">邮箱：</label>
+                        <span class="cell-span">{{detailData.email}}</span>
+                      </div> -->
+                      <div>
+                        <label class="cell-label">姓名：</label>
+                        <span class="cell-span">{{detailData.name}}</span>
+                      </div>
+                    </div>
+                    <div class="list-cell-bottom">
+                      <img src="../images/time.png" /><time>{{detailData.add_time}}</time><span>{{detailData.clicks}}人浏览过</span>
+                      <div class="price">
+                        <span class="priceDiscussOne">{{detailData.bargin ? '可议价' : '不可议价'}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="details" style="background-color: #fff;">
+            <div class="details-item">
+              <h4 class="title-bar">项目描述</h4>
+              <p class="details-item-p">{{detailData.desc}}</p>
+            </div>
+            <div class="details-item">
+              <h4 class="title-bar">参考网站或产品</h4>
+              <p class="details-item-p">{{detailData.consult1}}</p>
+              <p class="details-item-p">{{detailData.consult2}}</p>
+            </div>
+            <div class="details-item">
+              <h4 class="title-bar">相关文档</h4>
+              <div class="details-item-file" v-show="file1Size">
+                <div>
+                  <label>1. {{file1Name}}</label>
+                  <span style="margin-left:4px">大小：{{parseInt(file1Size/1024)}}KB</span>
+                </div>
+                <!-- <span v-down="url" ></span> -->
+                <button style="border: none;outline: none;" @click.stop="downloadOne(detailData.file1)">查看</button>
+                <!-- <a :href="detailData.file1" :download="file1Name">查看</a> -->
+              </div>
+              <div class="details-item-file" v-show="file2Size">
+                <div>
+                  <label>2. {{file2Name}}</label>
+                  <span style="margin-left:4px">大小：{{parseInt(file2Size/1024)}}KB</span>
+                </div>
+                <button style="border: none;outline: none;" @click.stop="downloadTwo(detailData.file2)">查看</button>
+              </div>
+            </div>
+
+            <div class="details-item">
+              <h4 class="title-bar">备注要求</h4>
+              <p class="details-item-p">{{detailData.note}}</p>
+            </div>
+        </main>
+        <aside class="public-problem col-xs-12 col-sm-3">
+          <div class="public-problem-title">
+            <h4>开发方常见问题解答</h4>
+            <a href="">查看更多 &raquo;</a>
+          </div>
+          <ul>
+            <li><a href="problem.html/isdevelopCollapseCardOne">是否需要注册？</a></li>
+            <li><a href="problem.html/isdevelopCollapseCardTwo">如何接单？</a></li>
+            <li><a href="problem.html/isdevelopCollapseCardThree">如何进行支付交易？</a></li>
+          </ul>
+          <a href="problem.html">&raquo; 查看更多常见问题</a>
+          <button class="public-problem-demand" @click="toReleaseDemand">发布需求</button>
+        </aside>
+      </div>
+    </div>
+  </div>
+  <script src="../js/jquery-3.4.1.min.js"></script>
+  <script src="../js/style.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#detail',
+      data: {
+        detailData: {
+          add_time: '',
+          bargin: null,
+          business: '',
+          clicks: null,
+          consult1: '',
+          consult2: '',
+          days: null,
+          desc: '',
+          dev_type: [],
+          email: '',
+          file1: '',
+          file2: '',
+          id: null,
+          name: '',
+          note: '',
+          phone: '',
+          price: null,
+          product: '',
+          trade_id: null
+        },
+        file1Name: '',
+        file1Size: null,
+        file2Name: '',
+        file2Size: null
+      },
+      created() {
+        this.getDetailList()
+        this.clickNumber()
+      },
+      methods: {
+        getDetailList() {
+          const position = window.location.href.lastIndexOf('=')
+          const id = window.location.href.substr(position + 1)
+          let _this = this
+          $.ajax({
+            type: "post",
+            url: "http://kdm.rixiazai.com/home/index/demandDetail",
+            data: {
+              id: id
+            },
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            success: function (responseData) {
+              const rawdata = JSON.parse(responseData)
+              _this.detailData = rawdata.data
+              const fileDataOne = _this.detailData.file1 && JSON.parse(_this.detailData.file1)
+              const fileDataTwo = _this.detailData.file2 && JSON.parse(_this.detailData.file2)
+              _this.detailData.file1 = fileDataOne && fileDataOne.url
+              _this.file1Name = fileDataOne && fileDataOne.name
+              _this.file1Size = fileDataOne && fileDataOne.size
+              _this.detailData.file2 = fileDataTwo && fileDataTwo.url
+              _this.file2Name = fileDataTwo && fileDataTwo.name
+              _this.file2Size = fileDataTwo && fileDataTwo.size
+            }
+          })
+        },
+        downloadOne(file) {
+          window.open(file)
+        },
+        downloadTwo(file) {
+          window.open(file)
+        },
+        toReleaseDemand() {
+          location.href = "release-demand.html"
+        },
+        clickNumber() {
+          const position = window.location.href.lastIndexOf('=')
+          const id = window.location.href.substr(position + 1)
+          $.ajax({
+            type: "post",
+            url: "http://kdm.rixiazai.com/home/public/clicks",
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: {
+              id
+            },
+            success: function (responseData) {
+            }
+          });
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,318 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>KODINGMAN-外包平台-外包列表</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <link rel="stylesheet" type="text/css" href="../css/style.css" />
+  <link rel="stylesheet" type="text/css" href="../css/list.css" />
+  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="../js/vue.js"></script>
+  <script src="../js/vuex.js"></script>
+  <script src="../js/vue-router.js"></script>
+</head>
+
+<body style="background:#F5F5F5;">
+  <div id="list">
+    <header class="header-nav-bg">
+      <div class="header-nav">
+        <div class="header-nav-left">
+          <img class="public-logo" src="../../svg/top_ic_logo.svg" alt="logo" onclick="homeClick()" />
+          <label>移动互联网行业解决方案服务提供商</label>
+        </div>
+        <div class="header-nav-right">
+          <img src="../../images/more.png" alt="logo" />
+          <div class="header-nav-right-content">
+            <div>
+              <a href="index.html">首页</a>
+              <a href="list.html" class="active">外包列表</a>
+              <a href="release-demand.html">发布需求</a>
+              <a href="problem.html">问题列表</a>
+              <a href="../../index.html">回到官网</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="header-nav-height"></div>
+    <div class="container" style="max-width:1100px;margin:0 auto;">
+      <div class="public-crumbs">
+        <span>当前位置：</span><a href="index.html">首页</a><img src="../images/right icon@2x.png" /><a>外包列表</a>
+      </div>
+      <div class="row">
+        <main class="main col-xs-12 col-sm-9" style="padding:0;">
+          <header class="header">
+            <h4 class="title-bar">开发类型</h4>
+            <label>开发类型：</label>
+            <div class="menu-bar">
+              <span :class="[num === index ? 'menu-bar-active' : '']" v-for="(type, index) in typeList"
+                @click="getTabList(type.id, index)">{{type.value}}<i></i></span>
+            </div>
+          </header>
+          <div class="list">
+            <div class="list-cell" v-for="item in listData" :key="item.id" :value="listData">
+              <div class="list-cell-title">
+                <a :href="'details.html?id='+item.id">
+                  <h4 style="line-height: normal;">{{item.product}}</h4>
+                </a>
+                <span>¥{{item.price}}</span>
+              </div>
+              <div class="list-cell-content">
+                <div>
+                  <label class="cell-label">类型：</label>
+                  <span class="cell-span">{{item.dev_type && item.dev_type.join(' ')}}</span>
+                </div>
+                <div class="list-cell-custom">
+                  <div>
+                    <div>
+                      <label class="cell-label">项目行业：</label>
+                      <span class="cell-span">{{item.business}}</span>
+                    </div>
+                    <div>
+                      <label class="cell-label">周期：</label>
+                      <span class="cell-span">{{item.days}}天</span>
+                    </div>
+                  </div>
+                  <div class="list-cell-bottom"><img
+                      src="../images/time.png" />{{item.add_time}}<time></time><span>{{item.clicks}}人浏览过</span></div>
+                </div>
+              </div>
+            </div>
+            <nav aria-label="Page navigation" style="text-align:center">
+              <ul class="pagination">
+                <li class="left">
+                  <a :class="[prevdisabled ? 'pagination-altClass' : 'pagination-altClass-disable']" href="#"
+                    aria-label="Previous" @click="prevpage">
+                    <span aria-hidden="true">&lt;</span>
+                  </a>
+                </li>
+                <li v-for="pageNumber in pageInfo.totalPage" class="paginationNumber">
+                  <a href="#" :class="[currentPage === pageNumber ? 'pageActive' : '']" :id=`id-${pageNumber}` @click="pageChange(pageNumber)">{{pageNumber}}</a>
+                </li>
+                <li class="right">
+                  <a :class="[nextdisabled ? 'pagination-altClass' : 'pagination-altClass-disable']" href="#"
+                    aria-label="Next" @click="nextPage">
+                    <span aria-hidden="true">&gt;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </main>
+        <aside class="public-problem  col-xs-12 col-sm-3">
+          <div class="public-problem-title">
+            <h4>开发方常见问题解答</h4>
+            <a href="problem.html">查看更多&gt;&gt;</a>
+          </div>
+          <ul>
+            <li><a href="problem.html?isdevelopCollapseCardOne#register">是否需要注册？</a></li>
+            <li><a href="problem.html?isdevelopCollapseCardTwo#order">如何接单？</a></li>
+            <li><a href="problem.html?isdevelopCollapseCardThree#transaction">如何进行支付交易？</a></li>
+          </ul>
+          <a href="problem.html"> &raquo; 查看更多常见问题</a>
+          <button class="public-problem-demand" @click="toRelease">发布需求</button>
+        </aside>
+      </div>
+    </div>
+  </div>
+  <script src="../js/jquery-3.4.1.min.js"></script>
+  <script src="../js/style.js"></script>
+  <script src="../js/vuex.js"></script>
+  <!-- <script src="../js/list.js"></script> -->
+  <script>
+    const store = new Vuex.Store({
+      state: {
+        currentPage: 1,
+        typeId: null
+      },
+      mutations: {
+        nextPage(state) {
+          console.log('state.currentPage', state.currentPage)
+          state.currentPage = state.currentPage + 1
+          console.log('mutations-state.currentPage', state.currentPage)
+        },
+        prevpage(state) {
+          state.currentPage = state.currentPage - 1
+          console.log('mutations-state.prevpage', state.currentPage)
+        }
+      }
+    });
+    let vm = new Vue({
+      el: '#list',
+      store: store,
+      data: {
+        listData: {
+          add_time: '',
+          business: '',
+          clicks: 0,
+          days: 15,
+          dev_type: [],
+          id: 1,
+          price: 5000,
+          product: '',
+          trade_id: 12
+        },
+        pageInfo: {
+          limit: 10,
+          page: 1,
+          total: null,
+          totalPage: null
+        },
+        prevdisabled: false,
+        nextdisabled: true,
+        typeList: [{
+          id: null,
+          value: ''
+        }],
+        num: 0,
+        totalPage: null,
+        currentPage: 1
+      },
+      created() {
+        this.getList()
+        this.getTypes()
+      },
+      methods: {
+        getList() {
+          let _this = this
+          $.ajax({
+            type: "post",
+            url: "http://kdm.rixiazai.com/home/index/demand",
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            success: function (responseData) {
+              const rawdata = JSON.parse(responseData)
+              _this.listData = rawdata.data.data
+              _this.pageInfo = rawdata.data.pageInfo
+              _this.totalPage = _this.pageInfo.totalPage
+            }
+          });
+        },
+        getTypes() {
+          let _this = this
+          $.ajax({
+            type: "get",
+            url: "http://kdm.rixiazai.com/home/public/getTypes",
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            success: function (responseData) {
+              rawdata = JSON.parse(responseData)
+              _this.typeList = rawdata.data
+            }
+          });
+        },
+        getPageList(e) {
+          let _this = this
+          const page = e
+          const limit = _this.pageInfo.limit
+          const dev_type = _this.listData.dev_type
+          $.ajax({
+            type: "post",
+            url: "http://kdm.rixiazai.com/home/index/demand",
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: {
+              page,
+              limit,
+              dev_type
+            },
+            success: function (responseData) {
+              const rawdata = JSON.parse(responseData)
+              _this.listData = rawdata.data.data
+              _this.pageInfo = rawdata.data.pageInfo
+              _this.currentPage = page
+            }
+          });
+        },
+        getTabList(e, id) {
+          let _this = this
+          const page = 1
+          const limit = 10
+          const type = e
+          type === 0 ? dev_type = null : dev_type = type
+          _this.num = id
+          _this.$store.state.typeId = e
+          $.ajax({
+            type: "post",
+            url: "http://kdm.rixiazai.com/home/index/demand",
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: {
+              page,
+              limit,
+              dev_type
+            },
+            success: function (responseData) {
+              const rawdata = JSON.parse(responseData)
+              _this.listData = rawdata.data.data
+              _this.pageInfo = rawdata.data.pageInfo
+            }
+          });
+        },
+        pageChange(e) {
+          this.getPageList(e)
+          const page = e
+          if (page <= 1) {
+            this.prevdisabled = false
+          } else {
+            this.prevdisabled = true
+          }
+          if (page >= this.totalPage) {
+            this.nextdisabled = false
+          } else {
+            this.nextdisabled = true
+          }
+        },
+        prevpage() {
+          const page = this.currentPage - 1
+          if (page < 1) {
+            this.prevdisabled = false
+            return false
+          }
+          this.getPageList(page)
+        },
+        nextPage() {
+          const page = this.currentPage + 1
+          if (page > this.totalPage) {
+            this.nextdisabled = false
+            return false
+          }
+          this.getPageList(page)
+        },
+        toRelease() {
+          location.href = "release-demand.html"
+        },
+        clickNumber(id) {
+          $.ajax({
+            type: "post",
+            url: "http://kdm.rixiazai.com/home/public/clicks",
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: {
+              id
+            },
+            success: function (responseData) {
+            }
+          });
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>
